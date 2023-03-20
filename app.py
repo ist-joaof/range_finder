@@ -31,7 +31,7 @@ def effectiveroutes():
         f.save(f.filename)
         ip = flask.request.form['ip']
         result = range_search(ip, f.filename, True) 
-        return flask.render_template("Output.html", range=result')
+        return flask.render_template("Output.html", range=result)
     else:
         return('Something went wrong, please retry') 
 
