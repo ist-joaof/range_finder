@@ -53,6 +53,7 @@ def range_search(ip, filename, effectiveroutes):
                         aux2 = range.split(',')
                         for aux3 in aux2:
                             if '"' in aux3:
+                                aux3 = aux3.split('"')
                                 for aux4 in aux3:
                                     if "/" in aux4:
                                         net = aux4
@@ -60,6 +61,8 @@ def range_search(ip, filename, effectiveroutes):
                                 net = ip_network(net, strict=False)
                                 if addr in net:
                                     output += aux4 + '\n'
+                            else:
+                                next
                     else:
                         net = ip_network(range, strict=False)
                         if addr in net:
