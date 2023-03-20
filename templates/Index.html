@@ -1,0 +1,17 @@
+<html>  
+<head>  
+    <title>IP Range Finder</title>  
+</head>  
+<body>  
+    <form action = "/dumproutinginfo" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" /> 
+        <input type ="text" name="ip" value="IP to look for:"/> 
+        <input type = "submit" value="Upload Dump Routing Info file">  
+    </form>
+    <form action = "/effectiveroutes" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" />
+        <input type ="text" name="ip" value="IP to look for:"/>  
+        <input type = "submit" value="Upload effective routes csv file">  
+    </form>  
+</body>  
+</html>
