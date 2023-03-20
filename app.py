@@ -12,9 +12,11 @@ def dumproutinginfo():
     if flask.request.method == 'POST':  
         f = flask.request.files['file']
         f.save(f.filename)
-        ip = flask.request.files['ip']
+        ip = flask.request.form['ip']
         result = range_search(ip, f.filename) 
         return flask.render_template("Output.html", range=result)
+    else:
+        return('Something went wrong, please retry')
 
 @app.route('/effectiveroutes', methods = ['POST'])  
 def effectiveroutes():  
@@ -27,9 +29,11 @@ def effectiveroutes():
         except:
             return('Uploaded file is not csv, please upload the effective routes excel file in the csv format')
         f.save(f.filename)
-        ip = flask.request.files['ip']
+        ip = flask.request.form['ip']
         result = range_search(ip, f.filename) 
-        return flask.render_template("Output.html", range='teste') 
+        return flask.render_template("Output.html", range='teste')
+    else:
+        return('Something went wrong, please retry') 
 
 def range_search(ip, filename, effectiveroutes):
     try:
