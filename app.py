@@ -26,7 +26,7 @@ def effectiveroutes():
             return('Uploaded file is not csv, please upload the effective routes excel file in the csv format')
         ip = flask.request.files['ip']
         result = range_search(ip, f.filename) 
-        return flask.render_template("Output.html", output=result) 
+        return flask.render_template("Output.html", output='teste') 
 
 def range_search(ip, filename, effectiveroutes):
     try:
