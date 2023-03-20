@@ -4,29 +4,29 @@ app = flask.Flask(__name__)
   
 @app.route('/')  
 def main():  
-    return render_template("Index.html")  
+    return flask.render_template("Index.html")  
   
 @app.route('/dumproutinginfo', methods = ['POST'])  
 def dumproutinginfo():  
-    if request.method == 'POST':  
-        f = request.files['file']
-        ip = request.files['ip']
+    if flask.request.method == 'POST':  
+        f = flask.request.files['file']
+        ip = flask.request.files['ip']
         result = range_search(ip, f.filename) 
-        return render_template("Output.html", output = result)
+        return flask.render_template("Output.html", output = result)
 
 @app.route('/effectiveroutes', methods = ['POST'])  
 def effectiveroutes():  
-    if request.method == 'POST':  
-        f = request.files['file']
+    if flask.request.method == 'POST':  
+        f = flask.request.files['file']
         try:
             extension = f.filename.split('.')[1]
             if extension != 'csv':
                 return('Uploaded file is not csv, please upload the effective route excel file in the csv format')
         except:
             return('Uploaded file is not csv, please upload the effective routes excel file in the csv format')
-        ip = request.files['ip']
+        ip = flask.request.files['ip']
         result = range_search(ip, f.filename) 
-        return render_template("Output.html", output=result) 
+        return flask.render_template("Output.html", output=result) 
 
 def range_search(ip, filename, effectiveroutes):
     try:
