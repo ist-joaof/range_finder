@@ -46,9 +46,9 @@ def range_search(ip, filename, effectiveroutes):
     output = ''
     if effectiveroutes:
         for line in lines:
-            aux = line.split()
+            aux = line.split(',')
             for range in aux:
-                if '/' in aux:
+                if '/' in range and range != 'N/A':
                     if '"' in range:
                         aux2 = range.split(',')
                         for aux3 in aux2:
@@ -57,17 +57,19 @@ def range_search(ip, filename, effectiveroutes):
                                     if "/" in aux4:
                                         net = aux4
                                         break
-                                net = ip_network(aux, strict=False)
+                                net = ip_network(net, strict=False)
                                 if addr in net:
                                     output += aux4 + '\n'
                     else:
-                        net = ip_network(aux, strict=False)
+                        net = ip_network(range, strict=False)
                         if addr in net:
-                            output += aux + '\n'
+                            output += range + '\n'
+                else:
+                    next
     else:
         for line in lines:
             aux = line.split()
-            if line.len() > 0:
+            if len(aux) > 0:
                 if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C':
                     net = ip_network(aux[1], strict=False)
                     if addr in net:
