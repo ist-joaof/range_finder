@@ -31,7 +31,7 @@ def effectiveroutes():
         f.save(f.filename)
         ip = flask.request.form['ip']
         result = range_search(ip, f.filename, True) 
-        return flask.render_template("Output.html", range='teste')
+        return flask.render_template("Output.html", range=result')
     else:
         return('Something went wrong, please retry') 
 
@@ -67,12 +67,13 @@ def range_search(ip, filename, effectiveroutes):
     else:
         for line in lines:
             aux = line.split()
-            if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C':
-                net = ip_network(aux[1], strict=False)
-                if addr in net:
-                    output += aux[1] + '\n'
-            else:
-                next
+            if line.len() > 0:
+                if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C':
+                    net = ip_network(aux[1], strict=False)
+                    if addr in net:
+                        output += aux[1] + '\n'
+                else:
+                    next
     file.close()
     # add file delete
     return output
