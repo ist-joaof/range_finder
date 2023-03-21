@@ -58,7 +58,7 @@ def range_search(ip, filename, effectiveroutes):
                                     if "/" in aux4:
                                         net = aux4
                                         break
-                                net = ip_network(net, strict=False)
+                                net = ip_network(net.split()[0], strict=False)
                                 if addr in net:
                                     output += aux4 + '\n'
                             else:
