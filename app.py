@@ -77,6 +77,7 @@ def range_search(ip, filename, effectiveroutes):
     else:
         for line in lines:
             aux = line.split()
+            bestPrefix = 0
             if len(aux) > 0:
                 if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C' or ('/' in aux[0]):
                     if '/' not in aux[0]:
