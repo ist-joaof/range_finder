@@ -73,7 +73,7 @@ def range_search(ip, filename, effectiveroutes):
         for line in lines:
             aux = line.split()
             if len(aux) > 0:
-                if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C':
+                if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C' or '/' in aux[0]:
                     net = ip_network(aux[1], strict=False)
                     if addr in net:
                         output += aux[1] + '\n'
