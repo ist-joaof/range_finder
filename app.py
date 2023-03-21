@@ -62,13 +62,13 @@ def range_search(ip, filename, effectiveroutes):
                                 if addr in net:
                                     output += aux4 + '\n'
                             else:
-                                next
+                                continue
                     else:
                         net = ip_network(range.split()[0], strict=False)
                         if addr in net:
                             output += range + '\n'
                 else:
-                    next
+                    continue
     else:
         for line in lines:
             aux = line.split()
@@ -82,11 +82,11 @@ def range_search(ip, filename, effectiveroutes):
                             net = ip_network(aux[0], strict=False)
                             out = aux[0]
                         except:
-                            next
+                            continue
                     if addr in net:
                         output += out + '\n'
                 else:
-                    next
+                    continue
     file.close()
     # add file delete
     return output
