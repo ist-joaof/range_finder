@@ -45,6 +45,7 @@ def range_search(ip, filename, effectiveroutes):
     lines = file.readlines()
     output = ''
     if effectiveroutes:
+        bestPrefix = 0
         for line in lines:
             aux = line.split(',')
             for range in aux:
@@ -60,13 +61,17 @@ def range_search(ip, filename, effectiveroutes):
                                         break
                                 net = ip_network(net.split()[0], strict=False)
                                 if addr in net:
-                                    output += aux4 + '\n'
+                                    if net.prefixlen >= bestPrefix:
+                                        bestPrefix = net.prefixlen
+                                        output = aux4
                             else:
                                 continue
                     else:
                         net = ip_network(range.split()[0], strict=False)
                         if addr in net:
-                            output += range + '\n'
+                            if net.prefixlen >= bestPrefix:
+                                bestPrefix = net.prefixlen
+                                output = range
                 else:
                     continue
     else:
@@ -84,7 +89,9 @@ def range_search(ip, filename, effectiveroutes):
                         except:
                             continue
                     if addr in net:
-                        output += out + '\n'
+                        if net.prefixlen >= bestPrefix:
+                            bestPrefix = net.prefixlen
+                            output = out
                 else:
                     continue
     file.close()
