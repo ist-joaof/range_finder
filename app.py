@@ -76,13 +76,15 @@ def range_search(ip, filename, effectiveroutes):
                 if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C' or ('/' in aux[0]):
                     if '/' not in aux[0]:
                         net = ip_network(aux[1], strict=False)
+                        out = aux[1]
                     else:
                         try:
                             net = ip_network(aux[0], strict=False)
+                            out = aux[0]
                         except:
                             next
                     if addr in net:
-                        output += aux[1] + '\n'
+                        output += out + '\n'
                 else:
                     next
     file.close()
