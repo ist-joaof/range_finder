@@ -64,7 +64,7 @@ def range_search(ip, filename, effectiveroutes):
                             else:
                                 next
                     else:
-                        net = ip_network(range.split(), strict=False)
+                        net = ip_network(range.split()[0], strict=False)
                         if addr in net:
                             output += range + '\n'
                 else:
