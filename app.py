@@ -59,7 +59,8 @@ def effectiveroutes():
                 aux1 = tmp[:4]
                 trsh,aux2,aux3 = tmp[4:][0].split('"')
                 result = aux1 + [aux2,] + [aux3,]
-
+            else:
+                result = result.split(',')
         return flask.render_template("effectiveroutesOutput.html", routesource=result[0], destinationsubnets=result[1],destinationservicetags=result[2],nexthoptype=result[3],nexthops=result[4],isenabled=result[5])
     else:
         return('Something went wrong, please retry') 
