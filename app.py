@@ -19,7 +19,10 @@ def dumproutinginfo():
             if result[i] == '':
                 result[i] = 'No range matched'
             else:
-                result[i] = result[i].replace('\n','<br>')
+                try:
+                    result[i] = result[i].replace('\n','<br>')
+                except:
+                    continue
         return flask.render_template("dumproutingOutput.html", privateprimary=result[0],privatesecondary=result[1],microsoftprimary=result[2],microsoftsecondary=result[3],publicprimary=result[4],publicsecondary=result[5])
     else:
         return('Something went wrong, please retry')
@@ -36,7 +39,7 @@ def effectiveroutes():
             filename = filename.split('.')[0] + '.csv'
             read_file.to_csv(filename, index=None,header=True)
         #except:
-            return('Invalid file')
+            #return('Invalid file')
         f.save(filename)
         ip = flask.request.form['ip']
         result = range_search(ip, filename, True) 
