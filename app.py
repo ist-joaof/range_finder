@@ -42,8 +42,18 @@ def effectiveroutes():
             #return('Invalid file')
         f.save(filename)
         ip = flask.request.form['ip']
-        result = range_search(ip, filename, True) 
-        result = result.split(',')
+        result = range_search(ip, filename, True)
+        if '"' not in result:
+            result = result.split(',')
+        else:
+            aux = result.split(',')
+            for i in range(0,len(aux)):
+                if '"' in aux[i]:
+                    break
+            if i == 1:
+                aux1, aux2 = result[i].split(',',1)
+                trash,aux2,aux3 = aux2.split('"')
+                result = [aux1,aux2] + aux3.split(',')[1:]
         return flask.render_template("effectiveroutesOutput.html", routesource=result[0], destinationsubnets=result[1],destinationservicetags=result[2],nexthoptype=result[3],nexthops=result[4],isenabled=result[5])
     else:
         return('Something went wrong, please retry') 
