@@ -55,7 +55,7 @@ def effectiveroutes():
                 trash,aux2,aux3 = aux2.split('"')
                 result = [aux1,aux2] + aux3.split(',')[1:]
             elif i == 4:
-                tmp = result[i].split(',', 4)
+                tmp = result.split(',', 4)
                 aux1 = tmp[:4]
                 trsh,aux2,aux3 = tmp[4:][0].split('"')
                 result = aux1 + [aux2,] + [aux3,]
