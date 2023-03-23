@@ -15,6 +15,11 @@ def dumproutinginfo():
         f.save(f.filename)
         ip = flask.request.form['ip']
         result = range_search(ip, f.filename, False) 
+        for i in range(0,result):
+            if result[i] == '':
+                result[i] = 'No range matched'
+            else:
+                result[i] = result[i].replace('\n','<br>')
         return flask.render_template("dumproutingOutput.html", privateprimary=result[0],privatesecondary=result[1],microsoftprimary=result[2],microsoftsecondary=result[3],publicprimary=result[4],publicsecondary=result[5])
     else:
         return('Something went wrong, please retry')
