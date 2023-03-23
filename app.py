@@ -29,17 +29,17 @@ def effectiveroutes():
     if flask.request.method == 'POST':  
         f = flask.request.files['file']
         filename = f.filename
-        try:
-            extension = filename.split('.')[1]
-            if extension != 'csv':
-               read_file = pd.read_excel(f.filename)
-               filename = filename.split('.')[0] + '.csv'
-               read_file.to_csv(filename, index=None,header=True)
-        except:
+       # try:
+        extension = filename.split('.')[1]
+        if extension != 'csv':
+            read_file = pd.read_excel(filename)
+            filename = filename.split('.')[0] + '.csv'
+            read_file.to_csv(filename, index=None,header=True)
+        #except:
             return('Invalid file')
-        f.save(f.filename)
+        f.save(filename)
         ip = flask.request.form['ip']
-        result = range_search(ip, f.filename, True) 
+        result = range_search(ip, filename, True) 
         result = result.split(',')
         return flask.render_template("effectiveroutesOutput.html", routesource=result[0], destinationsubnets=result[1],destinationservicetags=result[2],nexthoptype=result[3],nexthops=result[4],isenabled=result[5])
     else:
