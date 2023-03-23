@@ -15,7 +15,7 @@ def dumproutinginfo():
         f.save(f.filename)
         ip = flask.request.form['ip']
         result = range_search(ip, f.filename, False) 
-        for i in range(0,result):
+        for i in range(0,len(result)):
             if result[i] == '':
                 result[i] = 'No range matched'
             else:
