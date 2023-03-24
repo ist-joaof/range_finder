@@ -216,13 +216,16 @@ def dumprouting_juniper_parser(filename, ip):
                             i -= 1
                             break
                         output[position] += lines[i]
-            elif '.' in aux[1] and '/' in aux[1]:
-                try:
-                    net = ip_network(aux[1], strict=False)
-                except:
+            elif '*' == aux[0]:
+                if '.' in aux[1] and '/' in aux[1]:
+                    try:
+                        net = ip_network(aux[1], strict=False)
+                    except:
+                        continue
+                    if ip in net and net.prefixlen >= bestPrefix:
+                        output[position] = lines[i]
+                else:
                     continue
-                if ip in net and net.prefixlen >= bestPrefix:
-                    output[position] = lines[i]
     file.close()
     return output
 
