@@ -2,6 +2,7 @@ import flask
 from ipaddress import ip_address, ip_network
 from fileinput import filename
 import pandas as pd
+from os import remove
 app = flask.Flask(__name__)
   
 @app.route('/')  
@@ -23,8 +24,16 @@ def dumproutinginfo():
                     result[i] = result[i].replace('\n','<br>')
                 except:
                     continue
+        try:
+            remove(f.filename)
+        except:
+            pass
         return flask.render_template("dumproutingOutput.html", privateprimary=result[0],privatesecondary=result[1],microsoftprimary=result[2],microsoftsecondary=result[3],publicprimary=result[4],publicsecondary=result[5])
     else:
+        try:
+            remove(f.filename)
+        except:
+            pass
         return('Something went wrong, please retry')
 
 @app.route('/effectiveroutes', methods = ['POST'])  
@@ -32,6 +41,7 @@ def effectiveroutes():
     if flask.request.method == 'POST':  
         f = flask.request.files['file']
         filename = f.filename
+        f.save(filename)
        # try:
         extension = filename.split('.')[1]
         if extension != 'csv':
@@ -40,7 +50,6 @@ def effectiveroutes():
             read_file.to_csv(filename, index=None,header=True)
         #except:
             #return('Invalid file')
-        f.save(filename)
         ip = flask.request.form['ip']
         result = range_search(ip, filename, True)
         if '"' not in result:
@@ -61,8 +70,18 @@ def effectiveroutes():
                 result = aux1 + [aux2,] + [aux3,]
             else:
                 result = result.split(',')
+        try:
+            remove(filename)
+            remove(f.filename)
+        except:
+            pass
         return flask.render_template("effectiveroutesOutput.html", routesource=result[0], destinationsubnets=result[1],destinationservicetags=result[2],nexthoptype=result[3],nexthops=result[4],isenabled=result[5])
     else:
+        try:
+            remove(filename)
+            remove(f.filename)
+        except:
+            pass
         return('Something went wrong, please retry') 
 
 def range_search(ip, filename, effectiveroutes):
