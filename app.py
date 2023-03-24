@@ -28,6 +28,8 @@ def dumproutinginfo():
             remove(f.filename)
         except:
             pass
+        if result == 'The submitted IP is not in the correct format.':
+            return('The submitted IP is not in the correct format.')
         return flask.render_template("dumproutingOutput.html", privateprimary=result[0],privatesecondary=result[1],microsoftprimary=result[2],microsoftsecondary=result[3],publicprimary=result[4],publicsecondary=result[5])
     else:
         try:
@@ -42,14 +44,14 @@ def effectiveroutes():
         f = flask.request.files['file']
         filename = f.filename
         f.save(filename)
-       # try:
-        extension = filename.split('.')[1]
-        if extension != 'csv':
-            read_file = pd.read_excel(filename)
-            filename = filename.split('.')[0] + '.csv'
-            read_file.to_csv(filename, index=None,header=True)
-        #except:
-            #return('Invalid file')
+        try:
+            extension = filename.split('.')[1]
+            if extension != 'csv':
+                read_file = pd.read_excel(filename)
+                filename = filename.split('.')[0] + '.csv'
+                read_file.to_csv(filename, index=None,header=True)
+        except:
+            return('Invalid file')
         ip = flask.request.form['ip']
         result = range_search(ip, filename, True)
         if '"' not in result:
@@ -75,6 +77,8 @@ def effectiveroutes():
             remove(f.filename)
         except:
             pass
+        if result == 'The submitted IP is not in the correct format.':
+            return('The submitted IP is not in the correct format.')
         return flask.render_template("effectiveroutesOutput.html", routesource=result[0], destinationsubnets=result[1],destinationservicetags=result[2],nexthoptype=result[3],nexthops=result[4],isenabled=result[5])
     else:
         try:
@@ -155,6 +159,8 @@ def dumprouting_cisco_parser(filename, ip):
     for line in lines:
         if 'DeviceName:' in line:
             aux = line.split(', ')
+            if 'Routing Info For' not in aux[0]:
+                continue
             deviceName = aux[4].split(':')[1]
             peeringType = aux[3].split(':')[1]
             position  = wordMap[peeringType]
@@ -163,7 +169,7 @@ def dumprouting_cisco_parser(filename, ip):
             continue
         aux = line.split()
         if len(aux)>0:
-            if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C':
+            if aux[0] == 'B' or aux[0] == 'L' or aux[0] == 'C' or aux[0] == '*>':
                 try:
                     net = ip_network(aux[1], strict=False)
                 except:

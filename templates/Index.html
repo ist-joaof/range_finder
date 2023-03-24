@@ -19,27 +19,23 @@
         <input type ="text" name="ip" id="ip" required/> 
         <input type = "submit" value="Upload Dump Routing Info file">  
     </form>
-    <h3>To parse the Effective Routes csv file follow these steps:</h3>
+    <h3>To parse the Effective Routes file follow these steps:</h3>
     <ol>
         <li>Go to either the NIC ASC page and get the NIC Effective Routes, or to the VM Diagnostics blade on ASC and run a test traffic to get the NIC Effective Routes</li>
         <li>Once you have the results for the effective routes you need to download the Excel file from ASC</li>
         <ul>
             <li>To do so, click on the "Export to Excel file" (first button on the top right corner of the table)<img src="/static/img/excel_button.png" alt="excel_button" height="50"></li>
         </ul>
-        <li>Now that you have the Effective Routes file, and before you can upload it, you need to convert it to csv
-        <ul>
-            <li>To do so, open the file in Excel, and click on "File" then "Save As", and choose the "CSV (Comma delimeted)(*.csv) format" </li>
-        </ul>
-        <li>Here on the tool, click on the "Choose File" button on the second slot and upload the Effective Routes Excel CSV file</li>
+        <li>Here on the tool, click on the "Choose File" button on the second slot and upload the Effective Routes Excel file</li>
         <li>On the second slot textbox type in the IP for which you want to find the maching range</li>
-        <li>Click on the "Upload effective routes csv file" button to submit and parse the file</li>
+        <li>Click on the "Upload effective routes excel file" button to submit and parse the file</li>
         <li>You will be then directed to the output page with the result. If no range matched the IP you will get an empty response.</li>
     </ol>
     <form action = "/effectiveroutes" method = "post" enctype="multipart/form-data">  
         <input type="file" name="file" />
         <label for="ip">IP to look for:</label>
         <input type ="text" name="ip" id="ip" required/>  
-        <input type = "submit" value="Upload effective routes csv file">  
+        <input type = "submit" value="Upload effective routes excel file">  
     </form>  
 </body>  
 </html>
