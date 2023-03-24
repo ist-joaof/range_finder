@@ -159,6 +159,8 @@ def dumprouting_cisco_parser(filename, ip):
     for line in lines:
         if 'DeviceName:' in line:
             aux = line.split(', ')
+            if 'Routing Info For' not in aux[0]:
+                continue
             deviceName = aux[4].split(':')[1]
             peeringType = aux[3].split(':')[1]
             position  = wordMap[peeringType]
