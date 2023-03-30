@@ -5,8 +5,20 @@
 <body>
     <h1>Welcome to IP Range finder!</h1>
     <h2>Use this tool to parse your effective routes and Dump Routing Info files and find which range is maching for a specific IP</h2>
-    <h3>The Dump Routing Info file parsing is currently disabled while we review some privacy concerns.</h3>
-    <p>We'll have it back running as soon as possible</p>
+    <h3>To parse the Dump Routing Info file follow these steps:</h3>
+    <ol>
+        <li>Go to the ExpressRoute page on ASC and download the file from the "DumpRoutingInfo" link</li>
+        <li>Here on the tool, click on "Choose File" button on the first slot and upload the DumpRoutingInfo file</li>
+        <li>On the first slot textbox type in the IP for which you want to find the maching range</li>
+        <li>Click on the "Upload Dump Routing Info file" button to submit and parse the file</li>
+        <li>You will then be directed to the output page with the result. If no range matched the IP you will get an empty response.</li>
+    </ol>
+    <form action = "/dumproutinginfo" method = "post" enctype="multipart/form-data">  
+        <input type="file" name="file" />
+        <label for="ip">IP to look for:</label>
+        <input type ="text" name="ip" id="ip" required/> 
+        <input type = "submit" value="Upload Dump Routing Info file">  
+    </form>
     <h3>To parse the Effective Routes file follow these steps:</h3>
     <ol>
         <li>Go to either the NIC ASC page and get the NIC Effective Routes, or to the VM Diagnostics blade on ASC and run a test traffic to get the NIC Effective Routes</li>
